@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<modules>
+		<Flagbit_FeedReader>
+			<active>true</active>
+			<codePool>local</codePool>
+			<version>0.6.0</version>
+		</Flagbit_FeedReader>
+	</modules>
+	
+	<global>
+		<blocks>
+			<feedreader>
+				<class>Flagbit_FeedReader_Block</class>
+			</feedreader>
+		</blocks>
+	</global>
+	
+	<frontend>
+		<layout>
+			<updates>
+				<feedreader>
+					<file>feedreader.xml</file>
+				</feedreader>
+			</updates>
+		</layout>
+	</frontend>
+</config>

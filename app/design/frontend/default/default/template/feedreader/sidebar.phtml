@@ -1,0 +1,32 @@
+<?php
+/**
+ * Magento
+ *
+ * @category   design_default
+ * @package    Flagbit_FeedReader
+ * @copyright  Copyright (c) 2010 Flagbit GmbH & Co. KG (http://www.flagbit.de)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php if($this->getItemCount() > 0): ?>
+<div class="box base-mini mini-feed-reader">
+	<div class="head">
+		<h4><?php echo $this->htmlEscape($this->getTitle()); ?></h4>
+	</div>
+	<div class="content">
+		<ol id="feed-items">
+		<?php foreach($this->getItems() as $item): ?>
+			<li class="block-feed-item">
+				<h5>
+					<a href="<?php echo $this->htmlEscape($item->link()); ?>">
+						<?php echo $this->htmlEscape($item->title()); ?>
+					</a>
+				</h5>
+				<p class="date"><?php echo $this->htmlEscape(date('d.m.Y H:m', strtotime($item->pubDate()))); ?></p>
+				<p class="summary"><?php echo $this->htmlEscape(Mage::helper('core/string')->truncate($item->description(), 80, '...', $remainder, false)); ?></p>
+			</li>
+		<?php endforeach; ?>
+		</ol>
+	</div>
+</div>
+<?php endif; ?>

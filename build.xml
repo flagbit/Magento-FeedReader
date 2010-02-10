@@ -1,0 +1,32 @@
+<project name="FeedReader" default="deploy" basedir=".">
+	
+	<property file="build.properties"/>
+	<property file="build.default.properties"/>
+	
+	<target name="deploy">
+		<copy todir="${target.dir}/app" overwrite="yes" verbose="yes">
+			<fileset dir="app">
+				<exclude name="**/.svn"/>
+			</fileset>
+		</copy>
+		<copy todir="${target.dir}/skin" overwrite="yes" verbose="yes">
+			<fileset dir="skin">
+				<exclude name="**/.svn"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="phpdoc">
+		<delete dir="${doc.dir}" />
+		<exec executable="${php.bin}" dir="${basedir}">
+			<arg value="${phpdoc.inc}" />
+			<arg value="-f" />
+			<arg value="*.php" />
+			<arg value="-t" />
+			<arg value="${doc.dir}" />
+			<arg value="-ti" />
+			<arg value="FeedReader" />
+		</exec>
+	</target>
+	
+</project>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<modules>
+		<Flagbit_FeedReader>
+			<active>true</active>
+			<codePool>local</codePool>
+		</Flagbit_FeedReader>
+	</modules>
+</config>

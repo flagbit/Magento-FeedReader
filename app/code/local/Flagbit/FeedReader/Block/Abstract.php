@@ -17,6 +17,7 @@
 abstract class Flagbit_FeedReader_Block_Abstract extends Mage_Core_Block_Template
 {
 	protected $feed = null;
+	protected $title = null;
 	private $itemCount = 5;
 	
 	/**
@@ -98,13 +99,36 @@ abstract class Flagbit_FeedReader_Block_Abstract extends Mage_Core_Block_Templat
 	public function getTitle()
 	{
 		$title = '';
-		if(!is_null($this->feed))
+		if(!is_null($this->title))
+		{
+			$title = $this->title;
+		}
+		else if(!is_null($this->feed))
 		{
 			$title = $this->feed->title();
 		}
 		return $title;
 	}
 	
+	/**
+	 * Sets the block's title
+	 * 
+	 * This overrides the feed title.
+	 * 
+	 * @param string $title
+	 * @return Flagbit_FeedReader_Block_Abstract
+	 */
+	public function setTitle($title)
+	{
+		$this->title = (string) $title;
+		return $this;
+	}
+	
+	/**
+	 * Returns the feed items
+	 * 
+	 * @return array
+	 */
 	public function getItems()
 	{
 		$return = array();

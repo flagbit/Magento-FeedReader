@@ -4,5 +4,10 @@
 		<reference name="head">
 			<action method="addCss"><stylesheet>css/feedreader.css</stylesheet></action>
 		</reference>
+		<reference name="left">
+			<block type="feedreader/sidebar" name="left.feedreader">
+				<action method="setUri"><uri>http://feeds.feedburner.com/buero-wohnen-betrieb</uri></action>
+			</block>
+		</reference>
 	</default>
 </layout>

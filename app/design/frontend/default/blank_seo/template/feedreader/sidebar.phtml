@@ -1,0 +1,42 @@
+<?php
+/**
+ * Magento
+ *
+ * @category   design_default
+ * @package    Flagbit_FeedReader
+ * @copyright  Copyright (c) 2010 Flagbit GmbH & Co. KG (http://www.flagbit.de)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php if($this->getItemCount() > 0): ?>
+<div class="block block-feed-reader">
+	<div class="block-title">
+		<strong><?php echo $this->htmlEscape($this->getTitle()); ?></strong>
+	</div>
+	<div class="block-content">
+		<ol id="feed-items">
+		<?php
+		$itemCount = 0;
+		foreach($this->getItems() as $item): ?>
+			<li class="block-feed-item <?php echo (++$itemCount % 2 == 0 ? 'even' : 'odd'); ?><?php if($itemCount >= $this->getItemCount()): ?> last<?php endif; ?>">
+				<h5>
+					<a href="<?php echo $this->htmlEscape($item->link()); ?>">
+						<?php echo $this->htmlEscape($item->title()); ?>
+					</a>
+				</h5>
+				<p class="date">
+					<a href="<?php echo $this->htmlEscape($item->link()); ?>">
+						<?php echo $this->htmlEscape(date('d.m.Y H:m', strtotime($item->pubDate()))); ?>
+					</a>
+				</p>
+				<p class="summary">
+					<a href="<?php echo $this->htmlEscape($item->link()); ?>">
+						<?php echo $this->htmlEscape(Mage::helper('core/string')->truncate($item->description(), 80, '...', $remainder, false)); ?>
+					</a>
+				</p>
+			</li>
+		<?php endforeach; ?>
+		</ol>
+	</div>
+</div>
+<?php endif; ?>

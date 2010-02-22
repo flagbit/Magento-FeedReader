@@ -15,8 +15,10 @@
 	</div>
 	<div class="content">
 		<ol id="feed-items">
-		<?php foreach($this->getItems() as $item): ?>
-			<li class="block-feed-item">
+		<?php
+		$itemCount = 0;
+		foreach($this->getItems() as $item): ?>
+			<li class="block-feed-item <?php echo (++$itemCount % 2 == 0 ? 'even' : 'odd'); ?><?php if($itemCount == 1): ?> first<?php endif;?><?php if($itemCount >= $this->getItemCount()): ?> last<?php endif; ?>">
 				<h5>
 					<a href="<?php echo $this->htmlEscape($item->link()); ?>">
 						<?php echo $this->htmlEscape($item->title()); ?>

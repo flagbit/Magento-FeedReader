@@ -6,7 +6,7 @@
 		</reference>
 		<reference name="left">
 			<block type="feedreader/sidebar" name="left.feedreader">
-				<action method="setUri"><uri>http://feeds.feedburner.com/buero-wohnen-betrieb</uri></action>
+				<action method="setUri"><uri>http://feeds.feedburner.com/magento</uri></action>
 			</block>
 		</reference>
 	</default>

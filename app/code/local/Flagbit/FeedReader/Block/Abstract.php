@@ -16,9 +16,20 @@
  */
 abstract class Flagbit_FeedReader_Block_Abstract extends Mage_Core_Block_Template
 {
-	protected $feed = null;
-	protected $title = null;
-	private $itemCount = 5;
+	/**
+	 * @var Zend_Feed_Abstract
+	 */
+	protected $_feed = null;
+	
+	/**
+	 * @var string
+	 */
+	protected $_title = null;
+	
+	/**
+	 * @var int
+	 */
+	private $_itemCount = 5;
 	
 	/**
 	 * The constructor
@@ -28,9 +39,6 @@ abstract class Flagbit_FeedReader_Block_Abstract extends Mage_Core_Block_Templat
 	public function __construct()
 	{
 		parent::__construct();
-		
-		// set the template
-		$this->setTemplate('feedreader/sidebar.phtml');
 		
 		// set up the cache
 		$this->setCacheLifetime(60 * 30); // 30 minutes
@@ -44,16 +52,34 @@ abstract class Flagbit_FeedReader_Block_Abstract extends Mage_Core_Block_Templat
 	 */
 	public function setUri($uri)
 	{
-		try
-		{
-			$this->feed = new Zend_Feed_Rss($uri);
+		try {
+			$this->_feed = Zend_Feed::import($uri);
+			// update the cache tag
 			$this->setCacheTag($uri);
 		}
-		catch(Zend_Feed_Exception $e)
-		{
+		catch (Zend_Feed_Exception $e) {
 			Mage::logException($e);
 		}
 		return $this;
+	}
+	
+	/**
+	 * Sets the cache tag
+	 * 
+	 * The cache tag is extended by the layout, template and locale.
+	 * 
+	 * @param string $cacheTag
+	 * @return Flagbit_FeedReader_Block_Abstract
+	 */
+	protected function setCacheTag($cacheTag)
+	{
+		$cacheTag = (string) $cacheTag;
+		
+		$cacheTag .= ':' . Mage::getDesign()->getTheme('layout');
+		$cacheTag .= ':' . Mage::getDesign()->getTheme('template');
+		$cacheTag .= ':' . Mage::getDesign()->getTheme('locale');
+		
+		return parent::setCacheTag($cacheTag);
 	}
 	
 	/**
@@ -66,7 +92,7 @@ abstract class Flagbit_FeedReader_Block_Abstract extends Mage_Core_Block_Templat
 	 */
 	public function setItemCount($itemCount)
 	{
-		$this->itemCount = (int) $itemCount;
+		$this->_itemCount = (int) $itemCount;
 		return $this;
 	}
 	
@@ -78,12 +104,10 @@ abstract class Flagbit_FeedReader_Block_Abstract extends Mage_Core_Block_Templat
 	public function getItemCount()
 	{
 		$itemCount = 0;
-		if(!is_null($this->feed))
-		{
-			$itemCount = $this->itemCount;
-			if($this->feed->count() < $itemCount)
-			{
-				$itemCount = $this->feed->count();
+		if (!is_null($this->_feed)) {
+			$itemCount = $this->_itemCount;
+			if ($this->_feed->count() < $itemCount) {
+				$itemCount = $this->_feed->count();
 			}
 		}
 		return $itemCount;
@@ -99,13 +123,11 @@ abstract class Flagbit_FeedReader_Block_Abstract extends Mage_Core_Block_Templat
 	public function getTitle()
 	{
 		$title = '';
-		if(!is_null($this->title))
-		{
-			$title = $this->title;
+		if (!is_null($this->_title)) {
+			$title = $this->_title;
 		}
-		else if(!is_null($this->feed))
-		{
-			$title = $this->feed->title();
+		else if (!is_null($this->_feed)) {
+			$title = $this->_feed->title();
 		}
 		return $title;
 	}
@@ -120,7 +142,7 @@ abstract class Flagbit_FeedReader_Block_Abstract extends Mage_Core_Block_Templat
 	 */
 	public function setTitle($title)
 	{
-		$this->title = (string) $title;
+		$this->_title = (string) $title;
 		return $this;
 	}
 	
@@ -132,14 +154,11 @@ abstract class Flagbit_FeedReader_Block_Abstract extends Mage_Core_Block_Templat
 	public function getItems()
 	{
 		$return = array();
-		if(!is_null($this->feed))
-		{
+		if (!is_null($this->_feed)) {
 			$itemCount = 0;
-			foreach($this->feed as $item)
-			{
+			foreach ($this->_feed as $item) {
 				$return[] = $item;
-				if(++$itemCount >= $this->getItemCount())
-				{
+				if (++$itemCount >= $this->getItemCount()) {
 					break;
 				}
 			}

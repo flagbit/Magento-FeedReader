@@ -55,7 +55,7 @@ abstract class Flagbit_FeedReader_Block_Abstract extends Mage_Core_Block_Templat
 		try {
 			$this->_feed = Zend_Feed::import($uri);
 			// update the cache tag
-			$this->setCacheTag($uri);
+			$this->setCacheKey($uri);
 		}
 		catch (Zend_Feed_Exception $e) {
 			Mage::logException($e);
@@ -64,22 +64,22 @@ abstract class Flagbit_FeedReader_Block_Abstract extends Mage_Core_Block_Templat
 	}
 	
 	/**
-	 * Sets the cache tag
+	 * Sets the cache key
 	 * 
-	 * The cache tag is extended by the layout, template and locale.
+	 * The cache key is extended by the layout, template and locale.
 	 * 
-	 * @param string $cacheTag
+	 * @param string $cacheKey
 	 * @return Flagbit_FeedReader_Block_Abstract
 	 */
-	protected function setCacheTag($cacheTag)
+	protected function setCacheKey($cacheKey)
 	{
-		$cacheTag = (string) $cacheTag;
+		$cacheKey = (string) $cacheKey;
 		
-		$cacheTag .= ':' . Mage::getDesign()->getTheme('layout');
-		$cacheTag .= ':' . Mage::getDesign()->getTheme('template');
-		$cacheTag .= ':' . Mage::getDesign()->getTheme('locale');
+		$cacheKey .= ':' . Mage::getDesign()->getTheme('layout');
+		$cacheKey .= ':' . Mage::getDesign()->getTheme('template');
+		$cacheKey .= ':' . Mage::getDesign()->getTheme('locale');
 		
-		return parent::setCacheTag($cacheTag);
+		return $this->setData('cache_key', $cacheKey);
 	}
 	
 	/**

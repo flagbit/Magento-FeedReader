@@ -1,21 +1,63 @@
 <project name="FeedReader" default="deploy" basedir=".">
-	
-	<property file="build.properties"/>
-	<property file="build.default.properties"/>
-	
-	<target name="deploy">
-		<copy todir="${target.dir}/app" overwrite="yes" verbose="yes">
+
+	<property file="${basedir}/build.properties" />
+	<property file="${basedir}/build.default.properties" />
+
+	<property name="name" value="Flagbit_FeedReader" />
+	<property name="version" value="0.6.0" />
+
+	<property name="magento.version" value="1.3.2.3" />
+
+	<property name="pear.dir" value="${basedir}/pear" />
+	<property name="pear.bin" value="" />
+
+	<property name="php.test.dir" value="${basedir}/tests" />
+	<property name="php.build.dir" value="${basedir}/build" />
+
+	<target name="clean">
+		<delete dir="${php.build.dir}" includeemptydirs="true" quiet="false" verbose="true" failonerror="true" />
+	</target>
+
+	<target name="prepare" depends="clean">
+		<mkdir dir="${php.build.dir}/reports/coverage" />
+	</target>
+
+	<target name="copy" depends="prepare">
+		<copy todir="${php.build.dir}/${name}-${version}/app">
 			<fileset dir="app">
-				<exclude name="**/.svn"/>
+				<exclude name="**/.svn" />
 			</fileset>
 		</copy>
-		<copy todir="${target.dir}/skin" overwrite="yes" verbose="yes">
+		<copy todir="${php.build.dir}/${name}-${version}/skin">
 			<fileset dir="skin">
-				<exclude name="**/.svn"/>
+				<exclude name="**/.svn" />
 			</fileset>
 		</copy>
 	</target>
-	
+
+	<target name="pre-package" depends="copy">
+		<copy tofile="${php.build.dir}/${name}-${version}/package2.xml" file="${basedir}/package2.xml" />
+	</target>
+
+	<target name="package" depends="pre-package">
+		<exec dir="${php.build.dir}/${name}-${version}" executable="${pear.bin}">
+			<arg line="mage-package package2.xml" />
+		</exec>
+	</target>
+
+	<target name="deploy">
+		<copy todir="${deploy.dir}/app" overwrite="yes" verbose="yes">
+			<fileset dir="app">
+				<exclude name="**/.svn" />
+			</fileset>
+		</copy>
+		<copy todir="${deploy.dir}/skin" overwrite="yes" verbose="yes">
+			<fileset dir="skin">
+				<exclude name="**/.svn" />
+			</fileset>
+		</copy>
+	</target>
+
 	<target name="phpdoc">
 		<delete dir="${doc.dir}" />
 		<exec executable="${php.bin}" dir="${basedir}">
@@ -28,5 +70,5 @@
 			<arg value="FeedReader" />
 		</exec>
 	</target>
-	
+
 </project>

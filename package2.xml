@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package version="2.0" xmlns="http://pear.php.net/dtd/package-2.0"
+	xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd
+		http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+
+	<name>Flagbit_FeedReader</name>
+	<channel>connect.flagbit.com</channel>
+	<summary>Flagbit Feed Reader Module</summary>
+	<description>
+		Allows integration of RSS/Atom feeds in the template
+	</description>
+	<lead>
+		<name>David Fuhr</name>
+		<user>df</user>
+		<email>fuhr@flagbit.de</email>
+		<active>yes</active>
+	</lead>
+	<date>2010-02-24</date>
+	<time>13:25:02</time>
+	<version>
+		<release>0.6.0</release>
+		<api>0.6.0</api>
+	</version>
+	<stability>
+		<release>stable</release>
+		<api>beta</api>
+	</stability>
+	<license uri="http://www.opensource.org/licenses/osl-3.0.php">OSL 3.0</license>
+	<notes>
+		- Initial release
+	</notes>
+	<contents>
+		<dir name="/">
+			<dir name="Flagbit">
+				<dir name="FeedReader">
+					<dir name="Block">
+						<file name="Abstract.php" role="magelocal" />
+						<file name="Sidebar.php" role="magelocal" />
+					</dir>
+					<dir name="etc">
+						<file name="config.xml" role="magelocal" />
+					</dir>
+				</dir>
+			</dir>
+		</dir>
+	</contents>
+	<dependencies>
+		<required>
+			<php>
+				<min>5.2.0</min>
+				<max>5.3.0</max>
+			</php>
+			<pearinstaller>
+				<min>1.6.2</min>
+			</pearinstaller>
+		</required>
+	</dependencies>
+	<phprelease />
+</package>

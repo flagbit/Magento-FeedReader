@@ -1,34 +1,35 @@
-<project name="FeedReader" default="deploy" basedir=".">
+<project name="Flagbit_FeedReader" default="deploy" basedir=".">
 
 	<property file="${basedir}/build.properties" />
 	<property file="${basedir}/build.default.properties" />
 
-	<property name="name" value="Flagbit_FeedReader" />
 	<property name="version" value="0.6.0" />
 
-	<property name="magento.version" value="1.3.2.3" />
+	<property name="php.bin" value="/usr/bin/php" />
+	<property name="build.dir" value="${basedir}/build" />
 
-	<property name="pear.dir" value="${basedir}/pear" />
 	<property name="pear.bin" value="/usr/bin/pear" />
+	<property name="pear.dir" value="${build.dir}/pear" />
+	<property name="pear.conf" value="${pear.dir}/pear.conf" />
+	
+	<property name="doc.dir" value="${basedir}/doc" />
 
-	<property name="php.test.dir" value="${basedir}/tests" />
-	<property name="php.build.dir" value="${basedir}/build" />
-
-	<target name="clean">
-		<delete dir="${php.build.dir}" includeemptydirs="true" failonerror="true" />
+	<target name="clean" description="Removes old build files">
+		<delete dir="${build.dir}/${ant.project.name}-${version}" includeemptydirs="true" failonerror="false" />
+		<delete file="${build.dir}/${ant.project.name}-${version}.tgz" failonerror="false" />
 	</target>
 
 	<target name="prepare" depends="clean">
-		<mkdir dir="${php.build.dir}" />
+		<mkdir dir="${build.dir}" />
 	</target>
 
 	<target name="copy" depends="prepare">
-		<copy todir="${php.build.dir}/${name}-${version}/app">
+		<copy todir="${build.dir}/${ant.project.name}-${version}/app">
 			<fileset dir="app">
 				<exclude name="**/.svn" />
 			</fileset>
 		</copy>
-		<copy todir="${php.build.dir}/${name}-${version}/skin">
+		<copy todir="${build.dir}/${ant.project.name}-${version}/skin">
 			<fileset dir="skin">
 				<exclude name="**/.svn" />
 			</fileset>
@@ -36,31 +37,50 @@
 	</target>
 
 	<target name="pre-package" depends="copy">
-		<copy tofile="${php.build.dir}/${name}-${version}/package2.xml" file="${basedir}/package2.xml" />
+		<copy tofile="${build.dir}/${ant.project.name}-${version}/package2.xml" file="${basedir}/package2.xml" />
 	</target>
 
-	<target name="prepare-pear" depends="pre-package">
-		<mkdir dir="${php.build.dir}/pear" />
-		<exec dir="${php.build.dir}" executable="${pear.bin}">
+	<target name="prepare-pear" description="">
+		<mkdir dir="${pear.dir}" />
+		
+		<condition property="pear.config-create.arg" value="-w" else="">
+			<or>
+				<os family="windows"/>
+			</or>
+		</condition>
+		<exec dir="${build.dir}" executable="${pear.bin}">
+			<env key="PHP_PEAR_PHP_BIN" value="${php.bin}" />
 			<arg value="config-create" />
-			<arg value="${php.build.dir}" />
-			<arg value="${php.build.dir}/pear/pear.conf" />
+			<arg value="${pear.config-create.arg}" />
+			<arg value="${build.dir}" />
+			<arg value="${pear.conf}" />
 		</exec>
-		<exec dir="${php.build.dir}/" executable="${pear.bin}">
-			<arg line="-c ${php.build.dir}/pear/pear.conf channel-update pear.php.net" />
+		
+		<exec dir="${build.dir}/" executable="${pear.bin}">
+			<env key="PHP_PEAR_PHP_BIN" value="${php.bin}" />
+			<arg line="-c ${pear.conf} channel-update pear.php.net" />
 		</exec>
-		<exec dir="${php.build.dir}/" executable="${pear.bin}">
-			<arg line="-c ${php.build.dir}/pear/pear.conf channel-discover connect.magentocommerce.com/core" />
+		<exec dir="${build.dir}/" executable="${pear.bin}">
+			<env key="PHP_PEAR_PHP_BIN" value="${php.bin}" />
+			<arg line="-c ${pear.conf} channel-discover connect.magentocommerce.com/core" />
 		</exec>
-		<exec dir="${php.build.dir}/" executable="${pear.bin}">
-			<arg line="-c ${php.build.dir}/pear/pear.conf install connect.magentocommerce.com/core/Mage_Pear_Helpers" />
+		<exec dir="${build.dir}/" executable="${pear.bin}">
+			<env key="PHP_PEAR_PHP_BIN" value="${php.bin}" />
+			<arg line="-c ${pear.conf} install connect.magentocommerce.com/core/Mage_Pear_Helpers" />
 		</exec>
 	</target>
 
-	<target name="package" depends="prepare-pear">
-		<exec dir="${php.build.dir}/${name}-${version}" executable="${php.build.dir}/pear/pear">
-			<arg line="-c ${php.build.dir}/pear/pear.conf mage-package package2.xml" />
+	<target name="package" depends="pre-package" description="Creates a PEAR package">
+		<condition property="mage.pear.bin" value="${pear.dir}/pear.bat" else="${pear.dir}/pear">
+			<or>
+				<os family="windows"/>
+			</or>
+		</condition>
+		<exec dir="${build.dir}/${ant.project.name}-${version}" executable="${mage.pear.bin}">
+			<env key="PHP_PEAR_PHP_BIN" value="${php.bin}" />
+			<arg line="-c ${pear.conf} mage-package package2.xml" />
 		</exec>
+		<move file="${build.dir}/${ant.project.name}-${version}/${ant.project.name}-${version}.tgz" todir="${build.dir}" />
 	</target>
 
 	<target name="deploy">
@@ -76,16 +96,16 @@
 		</copy>
 	</target>
 
-	<target name="phpdoc">
-		<delete dir="${doc.dir}" />
-		<exec executable="${php.bin}" dir="${basedir}">
+	<target name="phpdoc" description="">
+		<delete dir="${doc.dir}" includeemptydirs="true" failonerror="true" />
+		<exec executable="${php.bin}" dir="${basedir}/app">
 			<arg value="${phpdoc.inc}" />
 			<arg value="-f" />
 			<arg value="*.php" />
 			<arg value="-t" />
 			<arg value="${doc.dir}" />
 			<arg value="-ti" />
-			<arg value="FeedReader" />
+			<arg value="${ant.project.name}" />
 		</exec>
 	</target>
 

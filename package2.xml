@@ -5,11 +5,9 @@
 		http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
 
 	<name>Flagbit_FeedReader</name>
-	<channel>connect.magentocommerce.com/community</channel>
-	<summary>Enables a news feed </summary>
-	<description>
-		Allows integration of RSS/Atom feeds in the template
-	</description>
+	<channel>connect.flagbit.com</channel>
+	<summary>Allows integration of a RSS/Atom feed as a block</summary>
+	<description> Allows integration of a RSS/Atom feed as a block</description>
 	<lead>
 		<name>David Fuhr</name>
 		<user>df</user>

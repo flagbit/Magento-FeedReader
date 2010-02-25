@@ -9,17 +9,17 @@
 	<property name="magento.version" value="1.3.2.3" />
 
 	<property name="pear.dir" value="${basedir}/pear" />
-	<property name="pear.bin" value="" />
+	<property name="pear.bin" value="/usr/bin/pear" />
 
 	<property name="php.test.dir" value="${basedir}/tests" />
 	<property name="php.build.dir" value="${basedir}/build" />
 
 	<target name="clean">
-		<delete dir="${php.build.dir}" includeemptydirs="true" quiet="false" verbose="true" failonerror="true" />
+		<delete dir="${php.build.dir}" includeemptydirs="true" failonerror="true" />
 	</target>
 
 	<target name="prepare" depends="clean">
-		<mkdir dir="${php.build.dir}/reports/coverage" />
+		<mkdir dir="${php.build.dir}" />
 	</target>
 
 	<target name="copy" depends="prepare">
@@ -39,9 +39,27 @@
 		<copy tofile="${php.build.dir}/${name}-${version}/package2.xml" file="${basedir}/package2.xml" />
 	</target>
 
-	<target name="package" depends="pre-package">
-		<exec dir="${php.build.dir}/${name}-${version}" executable="${pear.bin}">
-			<arg line="mage-package package2.xml" />
+	<target name="prepare-pear" depends="pre-package">
+		<mkdir dir="${php.build.dir}/pear" />
+		<exec dir="${php.build.dir}" executable="${pear.bin}">
+			<arg value="config-create" />
+			<arg value="${php.build.dir}" />
+			<arg value="${php.build.dir}/pear/pear.conf" />
+		</exec>
+		<exec dir="${php.build.dir}/" executable="${pear.bin}">
+			<arg line="-c ${php.build.dir}/pear/pear.conf channel-update pear.php.net" />
+		</exec>
+		<exec dir="${php.build.dir}/" executable="${pear.bin}">
+			<arg line="-c ${php.build.dir}/pear/pear.conf channel-discover connect.magentocommerce.com/core" />
+		</exec>
+		<exec dir="${php.build.dir}/" executable="${pear.bin}">
+			<arg line="-c ${php.build.dir}/pear/pear.conf install connect.magentocommerce.com/core/Mage_Pear_Helpers" />
+		</exec>
+	</target>
+
+	<target name="package" depends="prepare-pear">
+		<exec dir="${php.build.dir}/${name}-${version}" executable="${php.build.dir}/pear/pear">
+			<arg line="-c ${php.build.dir}/pear/pear.conf mage-package package2.xml" />
 		</exec>
 	</target>
 

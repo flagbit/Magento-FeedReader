@@ -57,6 +57,9 @@ abstract class Flagbit_FeedReader_Block_Abstract extends Mage_Core_Block_Templat
 			// update the cache tag
 			$this->setCacheKey($uri);
 		}
+		catch (Zend_Http_Client_Adapter_Exception $e) {
+			Mage::logException($e);
+		}
 		catch (Zend_Feed_Exception $e) {
 			Mage::logException($e);
 		}

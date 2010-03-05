@@ -14,16 +14,22 @@
 	
 	<property name="doc.dir" value="${basedir}/doc" />
 
-	<target name="clean" description="Removes old build files">
+	<target name="clean" description="Removes old files" depends="clean-build,clean-phpdoc" />
+	
+	<target name="clean-build">
 		<delete dir="${build.dir}/${ant.project.name}-${version}" includeemptydirs="true" failonerror="false" />
 		<delete file="${build.dir}/${ant.project.name}-${version}.tgz" failonerror="false" />
 	</target>
+	
+	<target name="clean-phpdoc">
+		<delete dir="${doc.dir}" includeemptydirs="true" failonerror="true" />
+	</target>
 
-	<target name="prepare" depends="clean">
+	<target name="prepare">
 		<mkdir dir="${build.dir}" />
 	</target>
 
-	<target name="copy" depends="prepare">
+	<target name="copy" depends="prepare,clean-build">
 		<copy todir="${build.dir}/${ant.project.name}-${version}/app">
 			<fileset dir="app">
 				<exclude name="**/.svn" />
@@ -40,7 +46,7 @@
 		<copy tofile="${build.dir}/${ant.project.name}-${version}/package2.xml" file="${basedir}/package2.xml" />
 	</target>
 
-	<target name="prepare-pear" description="">
+	<target name="prepare-pear" description="Sets up the PEAR environment for building">
 		<mkdir dir="${pear.dir}" />
 		
 		<condition property="pear.config-create.arg" value="-w" else="">
@@ -96,8 +102,7 @@
 		</copy>
 	</target>
 
-	<target name="phpdoc" description="">
-		<delete dir="${doc.dir}" includeemptydirs="true" failonerror="true" />
+	<target name="phpdoc" description="" depends="clean-phpdoc">
 		<exec executable="${php.bin}" dir="${basedir}/app">
 			<arg value="${phpdoc.inc}" />
 			<arg value="-f" />

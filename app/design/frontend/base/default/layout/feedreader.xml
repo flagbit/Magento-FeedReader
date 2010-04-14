@@ -5,7 +5,7 @@
 			<action method="addCss"><stylesheet>css/feedreader.css</stylesheet></action>
 		</reference>
 		<reference name="left">
-			<block type="feedreader/sidebar" name="left.feedreader">
+			<block type="feedreader/sidebar" name="left.feedreader" template="feedreader/sidebar.phtml">
 				<action method="setUri"><uri>http://feeds.feedburner.com/magento</uri></action>
 			</block>
 		</reference>

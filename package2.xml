@@ -60,18 +60,6 @@
 						</dir>
 					</dir>
 				</dir>
-				<dir name="default">
-					<dir name="blank_seo">
-						<dir name="css">
-							<file name="feedreader.css" role="mageskin" />
-						</dir>
-						<dir name="template">
-							<dir name="feedreader">
-								<file name="sidebar.phtml" role="magedesign" />
-							</dir>
-						</dir>
-					</dir>
-				</dir>
 			</dir>
 		</dir>
 	</contents>

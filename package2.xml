@@ -5,7 +5,7 @@
 		http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
 
 	<name>Flagbit_FeedReader</name>
-	<channel>connect.flagbit.com</channel>
+	<channel>connect.magentocommerce.com/community</channel>
 	<summary>Allows integration of a RSS/Atom feed as a block</summary>
 	<description> Allows integration of a RSS/Atom feed as a block</description>
 	<lead>
@@ -14,8 +14,8 @@
 		<email>fuhr@flagbit.de</email>
 		<active>yes</active>
 	</lead>
-	<date>2010-02-24</date>
-	<time>13:25:02</time>
+	<date>2010-04-14</date>
+	<time>09:37:02</time>
 	<version>
 		<release>0.6.0</release>
 		<api>0.6.0</api>
@@ -33,11 +33,11 @@
 			<dir name="Flagbit">
 				<dir name="FeedReader">
 					<dir name="Block">
-						<file name="Abstract.php" role="magelocal" />
-						<file name="Sidebar.php" role="magelocal" />
+						<file name="Abstract.php" role="magecommunity" />
+						<file name="Sidebar.php" role="magecommunity" />
 					</dir>
 					<dir name="etc">
-						<file name="config.xml" role="magelocal" />
+						<file name="config.xml" role="magecommunity" />
 					</dir>
 				</dir>
 			</dir>

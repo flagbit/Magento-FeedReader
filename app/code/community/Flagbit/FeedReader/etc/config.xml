@@ -3,7 +3,7 @@
 	<modules>
 		<Flagbit_FeedReader>
 			<active>true</active>
-			<codePool>local</codePool>
+			<codePool>community</codePool>
 			<version>1.0.0</version>
 		</Flagbit_FeedReader>
 	</modules>

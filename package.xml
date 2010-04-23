@@ -7,24 +7,22 @@
 	<name>Flagbit_FeedReader</name>
 	<channel>connect.magentocommerce.com/community</channel>
 	<summary>A simple feed reader supporting RSS and Atom feeds. Highly customizable and easy to integrate.</summary>
-	<description>A simple feed reader supporting RSS and Atom feeds. Highly customizable and easy to integrate.
-
-Configuration is done in the default/layout/feedreader.xml. Simply reference the block where you want to create the feed. Feed URI and item count and template can be freely configured.</description>
+	<description>A simple feed reader supporting RSS and Atom feeds. Highly customizable and easy to integrate. Configuration is done in the default/layout/feedreader.xml. Simply reference the block where you want to create the feed. Feed URI and item count and template can be freely configured.</description>
 	<lead>
-		<name>David Fuhr</name>
-		<user>df</user>
-		<email>fuhr@flagbit.de</email>
+		<name><![CDATA[Flagbit GmbH & Co. KG]]></name>
+		<user>flagbit</user>
+		<email>magento@flagbit.de</email>
 		<active>yes</active>
 	</lead>
-	<date>2010-04-14</date>
-	<time>09:37:02</time>
+	<date>2010-04-23</date>
+	<time>10:12:02</time>
 	<version>
-		<release>1.0.0</release>
-		<api>1.0.0</api>
+		<release>1.0.1</release>
+		<api>1.0.1</api>
 	</version>
 	<stability>
 		<release>stable</release>
-		<api>beta</api>
+		<api>stable</api>
 	</stability>
 	<license uri="http://www.opensource.org/licenses/osl-3.0.php">OSL 3.0</license>
 	<notes>- Initial release</notes>

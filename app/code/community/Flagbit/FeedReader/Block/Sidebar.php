@@ -14,7 +14,9 @@
  * @package    Flagbit_FeedReader
  * @author     David Fuhr <fuhr@flagbit.de>
  */
-class Flagbit_FeedReader_Block_Sidebar extends Flagbit_FeedReader_Block_Abstract
+class Flagbit_FeedReader_Block_Sidebar
+	extends Flagbit_FeedReader_Block_Abstract
+	implements Mage_Widget_Block_Interface
 {
 	/**
 	 * The constructor

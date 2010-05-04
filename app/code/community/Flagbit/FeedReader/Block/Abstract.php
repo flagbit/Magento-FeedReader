@@ -17,21 +17,6 @@
 abstract class Flagbit_FeedReader_Block_Abstract extends Mage_Core_Block_Template
 {
 	/**
-	 * @var Zend_Feed_Abstract
-	 */
-	protected $_feed = null;
-	
-	/**
-	 * @var string
-	 */
-	protected $_title = null;
-	
-	/**
-	 * @var int
-	 */
-	private $_itemCount = 5;
-	
-	/**
 	 * The constructor
 	 * 
 	 * @return Flagbit_FeedReader_Block_Abstract
@@ -52,18 +37,38 @@ abstract class Flagbit_FeedReader_Block_Abstract extends Mage_Core_Block_Templat
 	 */
 	public function setUri($uri)
 	{
-		try {
-			$this->_feed = Zend_Feed::import($uri);
-			// update the cache tag
-			$this->setCacheKey($uri);
-		}
-		catch (Zend_Http_Client_Exception $e) {
-			Mage::logException($e);
-		}
-		catch (Zend_Feed_Exception $e) {
-			Mage::logException($e);
-		}
+		$this->setData('uri', (string) $uri);
 		return $this;
+	}
+	
+	/**
+	 * Returns the feed
+	 * 
+	 * Tries to create the feed from the URI.
+	 * 
+	 * @return Zend_Feed
+	 */
+	protected function getFeed()
+	{
+		$feed = $this->getData('feed');
+		if (is_null($feed)) {
+			$uri = $this->getData('uri');
+			if (!is_null($uri)) {
+				try {
+					$feed = Zend_Feed::import($uri);
+					$this->setData('feed', $feed);
+					// update the cache tag
+					$this->setCacheKey($uri);
+				}
+				catch (Zend_Http_Client_Exception $e) {
+					Mage::logException($e);
+				}
+				catch (Zend_Feed_Exception $e) {
+					Mage::logException($e);
+				}
+			}
+		}
+		return $feed;
 	}
 	
 	/**
@@ -95,7 +100,7 @@ abstract class Flagbit_FeedReader_Block_Abstract extends Mage_Core_Block_Templat
 	 */
 	public function setItemCount($itemCount)
 	{
-		$this->_itemCount = (int) $itemCount;
+		$this->setData('item_count', (int) $itemCount);
 		return $this;
 	}
 	
@@ -107,10 +112,10 @@ abstract class Flagbit_FeedReader_Block_Abstract extends Mage_Core_Block_Templat
 	public function getItemCount()
 	{
 		$itemCount = 0;
-		if (!is_null($this->_feed)) {
-			$itemCount = $this->_itemCount;
-			if ($this->_feed->count() < $itemCount) {
-				$itemCount = $this->_feed->count();
+		if (!is_null($this->getFeed())) {
+			$itemCount = $this->getData('item_count');
+			if ($this->getFeed()->count() < $itemCount || is_null($this->getData('item_count'))) {
+				$itemCount = $this->getFeed()->count();
 			}
 		}
 		return $itemCount;
@@ -126,11 +131,11 @@ abstract class Flagbit_FeedReader_Block_Abstract extends Mage_Core_Block_Templat
 	public function getTitle()
 	{
 		$title = '';
-		if (!is_null($this->_title)) {
-			$title = $this->_title;
+		if (!is_null($this->getData('title'))) {
+			$title = $this->getData('title');
 		}
-		else if (!is_null($this->_feed)) {
-			$title = $this->_feed->title();
+		else if (!is_null($this->getFeed())) {
+			$title = $this->getFeed()->title();
 		}
 		return $title;
 	}
@@ -145,7 +150,7 @@ abstract class Flagbit_FeedReader_Block_Abstract extends Mage_Core_Block_Templat
 	 */
 	public function setTitle($title)
 	{
-		$this->_title = (string) $title;
+		$this->setData('title', (string) $title);
 		return $this;
 	}
 	
@@ -157,9 +162,9 @@ abstract class Flagbit_FeedReader_Block_Abstract extends Mage_Core_Block_Templat
 	public function getItems()
 	{
 		$return = array();
-		if (!is_null($this->_feed)) {
+		if (!is_null($this->getFeed())) {
 			$itemCount = 0;
-			foreach ($this->_feed as $item) {
+			foreach ($this->getFeed() as $item) {
 				$return[] = $item;
 				if (++$itemCount >= $this->getItemCount()) {
 					break;

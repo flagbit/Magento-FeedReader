@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widgets>
+	<feedreader_sidebar type="feedreader/sidebar" translate="name description">
+		<name>FeedReader: Sidebar</name>
+		<description type="desc">Adds a FeedReader block</description>
+		<parameters>
+			<uri translate="label">
+				<required>1</required>
+				<visible>1</visible>
+				<label>Feed URI</label>
+				<type>text</type>
+			</uri>
+			<item_count translate="label description">
+				<required>0</required>
+				<visible>1</visible>
+				<label>Item Count</label>
+				<type>text</type>
+				<value>5</value>
+			</item_count>
+			<title translate="label description">
+				<required>0</required>
+				<visible>1</visible>
+				<label>Title</label>
+				<description>If empty, the feed's title will be used</description>
+				<type>text</type>
+			</title>
+			<template translate="label">
+				<required>1</required>
+				<visible>0</visible>
+				<label>Template</label>
+				<type>select</type>
+				<value>feedreader/sidebar.phtml</value>
+				<values>
+					<default translate="label">
+						<value>feedreader/sidebar.phtml</value>
+						<label>Sidebar</label>
+					</default>
+				</values>
+			</template>
+		</parameters>
+	</feedreader_sidebar>
+</widgets>

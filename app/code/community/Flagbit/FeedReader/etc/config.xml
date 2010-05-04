@@ -4,7 +4,7 @@
 		<Flagbit_FeedReader>
 			<active>true</active>
 			<codePool>community</codePool>
-			<version>1.0.1</version>
+			<version>1.1.0</version>
 		</Flagbit_FeedReader>
 	</modules>
 	
@@ -14,6 +14,11 @@
 				<class>Flagbit_FeedReader_Block</class>
 			</feedreader>
 		</blocks>
+		<helpers>
+			<feedreader>
+				<class>Flagbit_FeedReader_Helper</class>
+			</feedreader>
+		</helpers>
 	</global>
 	
 	<frontend>
@@ -25,4 +30,16 @@
 			</updates>
 		</layout>
 	</frontend>
+	
+	<adminhtml>
+		<translate>
+			<modules>
+				<Flagbit_FeedReader>
+					<files>
+						<default>Flagbit_FeedReader.csv</default>
+					</files>
+				</Flagbit_FeedReader>
+			</modules>
+		</translate>
+	</adminhtml>
 </config>

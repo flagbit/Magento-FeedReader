@@ -1,102 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package version="2.0" xmlns="http://pear.php.net/dtd/package-2.0"
-	xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd
-		http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
-
-	<name>Flagbit_FeedReader</name>
-	<channel>connect.magentocommerce.com/community</channel>
-	<summary>A simple feed reader supporting RSS and Atom feeds. Highly customizable and easy to integrate.</summary>
-	<description>A simple feed reader supporting RSS and Atom feeds. Highly customizable and easy to integrate. Configuration is done in the default/layout/feedreader.xml. Simply reference the block where you want to create the feed. Feed URI and item count and template can be freely configured.</description>
-	<lead>
-		<name><![CDATA[Flagbit GmbH & Co. KG]]></name>
-		<user>flagbit</user>
-		<email>magento@flagbit.de</email>
-		<active>yes</active>
-	</lead>
-	<date>2010-04-23</date>
-	<time>10:12:02</time>
-	<version>
-		<release>1.1.0</release>
-		<api>1.1.0</api>
-	</version>
-	<stability>
-		<release>stable</release>
-		<api>stable</api>
-	</stability>
-	<license uri="http://www.opensource.org/licenses/osl-3.0.php">OSL 3.0</license>
-	<notes>
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+    http://pear.php.net/dtd/tasks-1.0.xsd
+    http://pear.php.net/dtd/package-2.0
+    http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Flagbit_FeedReader</name>
+ <channel>connect.magentocommerce.com/community</channel>
+ <summary>A simple feed reader supporting RSS and Atom feeds. Highly customizable and easy to integrate.</summary>
+ <description>A simple feed reader supporting RSS and Atom feeds. Highly customizable and easy to integrate. Configuration is done in the default/layout/feedreader.xml. Simply reference the block where you want to create the feed. Feed URI and item count and template can be freely configured.</description>
+ <lead>
+  <name>Flagbit GmbH &amp; Co. KG</name>
+  <user>flagbit</user>
+  <email>magento@flagbit.de</email>
+  <active>yes</active>
+ </lead>
+ <date>2010-09-20</date>
+ <time>10:03:44</time>
+ <version>
+  <release>1.1.1</release>
+  <api>1.1.1</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license>OSL 3.0</license>
+ <notes>
 * Widgetized the extension
-	</notes>
-	<contents>
-		<dir name="/">
-			<dir name="Flagbit">
-				<dir name="FeedReader">
-					<dir name="Block">
-						<file name="Abstract.php" role="magecommunity" />
-						<file name="Sidebar.php" role="magecommunity" />
-					</dir>
-					<dir name="etc">
-						<file name="config.xml" role="magecommunity" />
-						<file name="widget.xml" role="magecommunity" />
-					</dir>
-					<dir name="Helper">
-						<file name="Data.php" role="magecommunity" />
-					</dir>
-				</dir>
-			</dir>
-			<dir name="modules">
-				<file name="Flagbit_FeedReader.xml" role="mageetc" />
-			</dir>
-			<dir name="frontend">
-				<dir name="base">
-					<dir name="default">
-						<dir name="css">
-							<file name="feedreader.css" role="mageskin" />
-						</dir>
-						<dir name="layout">
-							<file name="feedreader.xml" role="magedesign" />
-						</dir>
-						<dir name="template">
-							<dir name="feedreader">
-								<file name="sidebar.phtml" role="magedesign" />
-							</dir>
-						</dir>
-					</dir>
-				</dir>
-			</dir>
-			<dir name="de_DE">
-				<file name="Flagbit_FeedReader.csv" role="magelocale" />
-			</dir>
-		</dir>
-	</contents>
-	<dependencies>
-		<required>
-			<php>
-				<min>5.2.0</min>
-				<max>5.3.0</max>
-			</php>
-			<pearinstaller>
-				<min>1.6.2</min>
-			</pearinstaller>
-		</required>
-	</dependencies>
-	<phprelease />
-	<changelog>
-		<release>
-			<version>
-				<release>1.1.0</release>
-				<api>1.1.0</api>
-			</version>
-			<stability>
-				<release>stable</release>
-				<api>stable</api>
-			</stability>
-			<date>2010-04-23</date>
-			<license uri="http://www.opensource.org/licenses/osl-3.0.php">OSL 3.0</license>
-			<notes>
-* Initial release
-			</notes>
-		</release>
-	</changelog>
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="/de_AT">
+    <file md5sum="89f6c13d5e809f9fb504bfe6125ff162" name="Flagbit_FeedReader.csv" role="magelocale" />
+   </dir> <!-- //de_AT -->
+   <dir name="/de_CH">
+    <file md5sum="89f6c13d5e809f9fb504bfe6125ff162" name="Flagbit_FeedReader.csv" role="magelocale" />
+   </dir> <!-- //de_CH -->
+   <dir name="/de_DE">
+    <file md5sum="89f6c13d5e809f9fb504bfe6125ff162" name="Flagbit_FeedReader.csv" role="magelocale" />
+   </dir> <!-- //de_DE -->
+   <dir name="/en_GB">
+    <file md5sum="b1e56c6f00f159f78858e9db40e80b4d" name="Flagbit_FeedReader.csv" role="magelocale" />
+   </dir> <!-- //en_GB -->
+   <dir name="/en_US">
+    <file md5sum="b1e56c6f00f159f78858e9db40e80b4d" name="Flagbit_FeedReader.csv" role="magelocale" />
+   </dir> <!-- //en_US -->
+   <dir name="/Flagbit/FeedReader/Block">
+    <file md5sum="d7f703f744bb22e102bd270beb53d818" name="Abstract.php" role="magecommunity" />
+    <file md5sum="39b387298e6ff89bc0625cb69b7bcd27" name="Sidebar.php" role="magecommunity" />
+   </dir> <!-- //Flagbit/FeedReader/Block -->
+   <dir name="/Flagbit/FeedReader/etc">
+    <file md5sum="233e973f16228e842af36dbed2f1fda2" name="config.xml" role="magecommunity" />
+    <file md5sum="8adfb0e384380eefbf79d694c9749a2e" name="widget.xml" role="magecommunity" />
+   </dir> <!-- //Flagbit/FeedReader/etc -->
+   <dir name="/Flagbit/FeedReader/Helper">
+    <file md5sum="2899ba63543324211967e22e4e13f1e3" name="Data.php" role="magecommunity" />
+   </dir> <!-- //Flagbit/FeedReader/Helper -->
+   <dir name="/frontend/base/default/css">
+    <file md5sum="eb016f3f670214e6472230290c598372" name="feedreader.css" role="mageskin" />
+   </dir> <!-- //frontend/base/default/css -->
+   <dir name="/frontend/base/default/layout">
+    <file md5sum="c5c3f1bf1e2414db5b73fd7328eed8d8" name="feedreader.xml" role="magedesign" />
+   </dir> <!-- //frontend/base/default/layout -->
+   <dir name="/frontend/base/default/template/feedreader">
+    <file md5sum="2eada53c5ca6465297a7fd811692c2b1" name="sidebar.phtml" role="magedesign" />
+   </dir> <!-- //frontend/base/default/template/feedreader -->
+   <dir name="/modules">
+    <file md5sum="302036c0fe8cc40a093ff3c8bd62b399" name="Flagbit_FeedReader.xml" role="mageetc" />
+   </dir> <!-- //modules -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.0</min>
+    <max>6.0.0</max>
+   </php>
+   <pearinstaller>
+    <min>1.6.2</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.1</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2010-09-20</date>
+   <license>OSL 3.0</license>
+   <notes>
+* Widgetized the extension
+   </notes>
+  </release>
+ </changelog>
 </package>

@@ -3,23 +3,14 @@
 	<property file="${basedir}/build.properties" />
 	<property file="${basedir}/build.default.properties" />
 
-	<property name="version" value="0.6.0" />
-
 	<property name="php.bin" value="/usr/bin/php" />
 	<property name="build.dir" value="${basedir}/build" />
-
-	<property name="pear.bin" value="/usr/bin/pear" />
-	<property name="pear.dir" value="${build.dir}/pear" />
-	<property name="pear.conf" value="${pear.dir}/pear.conf" />
-	
+    <property name="srcdir" value="${basedir}/src"/>
+    <property name="builddir" value="${basedir}/build"/>
+    <property name="docdir" value="${basedir}/doc"/>
 	<property name="doc.dir" value="${basedir}/doc" />
 
-	<target name="clean" description="Removes old files" depends="clean-build,clean-phpdoc" />
-	
-	<target name="clean-build">
-		<delete dir="${build.dir}/${ant.project.name}-${version}" includeemptydirs="true" failonerror="false" />
-		<delete file="${build.dir}/${ant.project.name}-${version}.tgz" failonerror="false" />
-	</target>
+	<target name="clean" description="Removes old files" depends="clean-phpdoc" />
 	
 	<target name="clean-phpdoc">
 		<delete dir="${doc.dir}" includeemptydirs="true" failonerror="true" />
@@ -27,67 +18,39 @@
 
 	<target name="prepare">
 		<mkdir dir="${build.dir}" />
-	</target>
-
-	<target name="copy" depends="prepare,clean-build">
-		<copy todir="${build.dir}/${ant.project.name}-${version}/app">
-			<fileset dir="app">
-				<exclude name="**/.svn" />
-			</fileset>
-		</copy>
-		<copy todir="${build.dir}/${ant.project.name}-${version}/skin">
-			<fileset dir="skin">
-				<exclude name="**/.svn" />
-			</fileset>
-		</copy>
-	</target>
-
-	<target name="pre-package" depends="copy">
-		<copy tofile="${build.dir}/${ant.project.name}-${version}/package2.xml" file="${basedir}/package2.xml" />
-	</target>
-
-	<target name="prepare-pear" description="Sets up the PEAR environment for building">
-		<mkdir dir="${pear.dir}" />
 		
-		<condition property="pear.config-create.arg" value="-w" else="">
-			<or>
-				<os family="windows"/>
-			</or>
-		</condition>
-		<exec dir="${build.dir}" executable="${pear.bin}">
-			<env key="PHP_PEAR_PHP_BIN" value="${php.bin}" />
-			<arg value="config-create" />
-			<arg value="${pear.config-create.arg}" />
-			<arg value="${build.dir}" />
-			<arg value="${pear.conf}" />
-		</exec>
-		
-		<exec dir="${build.dir}/" executable="${pear.bin}">
-			<env key="PHP_PEAR_PHP_BIN" value="${php.bin}" />
-			<arg line="-c ${pear.conf} channel-update pear.php.net" />
-		</exec>
-		<exec dir="${build.dir}/" executable="${pear.bin}">
-			<env key="PHP_PEAR_PHP_BIN" value="${php.bin}" />
-			<arg line="-c ${pear.conf} channel-discover connect.magentocommerce.com/core" />
-		</exec>
-		<exec dir="${build.dir}/" executable="${pear.bin}">
-			<env key="PHP_PEAR_PHP_BIN" value="${php.bin}" />
-			<arg line="-c ${pear.conf} install connect.magentocommerce.com/core/Mage_Pear_Helpers" />
-		</exec>
+        <replaceregexp file="${srcdir}/app/code/community/Flagbit/Feedreader/etc/config.xml"
+            match="(&lt;version&gt;)(.*)(&lt;/version&gt;)" replace="\1${package.version}\3"/>
+
+        <tstamp>
+            <format property="package.date" pattern="yyyy-MM-dd"/>
+        </tstamp>
+        <tstamp>
+            <format property="package.time" pattern="HH:mm:ss"/>
+        </tstamp>
+        <replaceregexp file="${basedir}/package.xml"
+            match="(&lt;(date)&gt;).*?(&lt;/\2&gt;)" replace="\1${package.date}\3" />
+        <replaceregexp file="${basedir}/package.xml"
+            match="(&lt;(time)&gt;).*?(&lt;/\2&gt;)" replace="\1${package.time}\3" />
+        
+        <replaceregexp file="${basedir}/package.xml"
+            match="(&lt;version&gt;.*?&lt;(release)&gt;).*?(&lt;/\2&gt;.*?&lt;(api)&gt;).*?(&lt;/\4&gt;.*?&lt;/version&gt;)"
+            replace="\1${package.version}\3${package.version}\5" flags="gs" />
 	</target>
 
-	<target name="package" depends="pre-package" description="Creates a PEAR package">
-		<condition property="mage.pear.bin" value="${pear.dir}/pear.bat" else="${pear.dir}/pear">
-			<or>
-				<os family="windows"/>
-			</or>
-		</condition>
-		<exec dir="${build.dir}/${ant.project.name}-${version}" executable="${mage.pear.bin}">
-			<env key="PHP_PEAR_PHP_BIN" value="${php.bin}" />
-			<arg line="-c ${pear.conf} mage-package package2.xml" />
-		</exec>
-		<move file="${build.dir}/${ant.project.name}-${version}/${ant.project.name}-${version}.tgz" todir="${build.dir}" />
-	</target>
+    <target name="package" depends="prepare" description="Creates a PEAR package">
+        <copy file="${basedir}/package.xml" tofile="${srcdir}/package.xml"/>
+        <exec dir='${srcdir}/' executable="${pear}">
+            <arg value="mpx"/>
+        </exec>
+        <replaceregexp file="${srcdir}/package.xml" match="(\\)" replace="/" flags="gs" />
+        <copy file="${srcdir}/package.xml" tofile="${basedir}/package.xml"/>
+        <exec dir="${srcdir}" executable="${pear}">
+            <arg value="mage-package"/>
+        </exec>
+        <delete file="${srcdir}/package.xml"/>
+        <move file="${srcdir}/${ant.project.name}-${package.version}.tgz" todir="${builddir}"/>
+    </target>
 
 	<target name="deploy">
 		<copy todir="${deploy.dir}/app" overwrite="yes" verbose="yes">

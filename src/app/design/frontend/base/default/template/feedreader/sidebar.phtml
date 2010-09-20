@@ -25,7 +25,7 @@
 					</a>
 				</h5>
 				<p class="date">
-					<?php echo $this->htmlEscape(date('d.m.Y H:m', strtotime($item->pubDate()))); ?>
+					<?php echo Mage::getModel('core/date')->date('d.m.Y H:m', strtotime($item->pubDate())); ?>
 				</p>
 				<p class="summary">
 					<a href="<?php echo $this->htmlEscape($item->link()); ?>">

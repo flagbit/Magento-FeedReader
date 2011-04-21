@@ -11,7 +11,7 @@
 <?php if($this->getItemCount() > 0): ?>
 <div class="block block-feed-reader">
 	<div class="block-title">
-		<strong><?php echo $this->htmlEscape($this->getTitle()); ?></strong>
+		<strong><?php echo $this->escapeHtml($this->getTitle()); ?></strong>
 	</div>
 	<div class="block-content">
 		<ol id="feed-items">
@@ -20,16 +20,16 @@
 		foreach($this->getItems() as $item): ?>
 			<li class="block-feed-item <?php echo (++$itemCount % 2 == 0 ? 'even' : 'odd'); ?><?php if($itemCount == 1): ?> first<?php endif;?><?php if($itemCount >= $this->getItemCount()): ?> last<?php endif; ?>">
 				<h5>
-					<a href="<?php echo $this->htmlEscape($item->link()); ?>">
-						<?php echo $this->htmlEscape($item->title()); ?>
+					<a href="<?php echo $this->escapeHtml($item->link()); ?>">
+						<?php echo $this->escapeHtml($item->title()); ?>
 					</a>
 				</h5>
 				<p class="date">
 					<?php echo Mage::getModel('core/date')->date('d.m.Y H:m', strtotime($item->pubDate())); ?>
 				</p>
 				<p class="summary">
-					<a href="<?php echo $this->htmlEscape($item->link()); ?>">
-						<?php echo $this->htmlEscape(Mage::helper('core/string')->truncate($item->description(), 80, '...', $remainder, false)); ?>
+					<a href="<?php echo $this->escapeHtml($item->link()); ?>">
+						<?php echo $this->escapeHtml(Mage::helper('core/string')->truncate($item->description(), 80, '...', $remainder, false)); ?>
 					</a>
 				</p>
 			</li>

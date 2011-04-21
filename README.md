@@ -11,3 +11,15 @@ feeds.
             </block>
         </reference>
     </default>
+
+FAQ
+---
+
+###  I'm having problems with the feed displaying HTML code
+
+HTML code is escaped by default. Including 3rd-party HTML code in your site can
+lead to major cross-site-scripting issues. You can adjust the behaviour in the
+template. The safe way of handling HTML is to simply string the tags before
+escaping. If you *really* want to print out foreign HTML code, you can do that
+too, but you also have to adjust the truncate function
+(see http://stackoverflow.com/questions/1193500/php-truncate-html-ignoring-tags).

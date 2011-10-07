@@ -174,6 +174,10 @@ abstract class Flagbit_FeedReader_Block_Abstract extends Mage_Core_Block_Templat
 		return $return;
 	}
 	
+	public function getFeedContent($item) {
+		return $item->content() != null ? $item->content() : ($item->summary() != null ? $item->summary() : $item->description());
+	}
+
 	public function getFeedPublished($item) {
 		return $item->pubDate() != null ? $item->pubDate() : $item->published();
 	}

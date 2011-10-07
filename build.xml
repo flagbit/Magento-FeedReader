@@ -9,7 +9,7 @@
     <property name="builddir" value="${basedir}/build"/>
     <property name="docdir" value="${basedir}/doc"/>
 	<property name="doc.dir" value="${basedir}/doc" />
-
+	
 	<target name="clean" description="Removes old files" depends="clean-phpdoc" />
 	
 	<target name="clean-phpdoc">

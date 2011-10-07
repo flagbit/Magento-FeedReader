@@ -21,16 +21,16 @@
 		foreach($this->getItems() as $item): ?>
 			<li class="block-feed-item <?php echo (++$itemCount % 2 == 0 ? 'even' : 'odd'); ?><?php if($itemCount == 1): ?> first<?php endif;?><?php if($itemCount >= $this->getItemCount()): ?> last<?php endif; ?>">
 				<h5>
-					<a href="<?php echo $this->escapeHtml($item->link()); ?>">
+					<a href="<?php echo $this->escapeHtml($this->getFeedLink($item)); ?>">
 						<?php echo $this->escapeHtml($item->title()); ?>
 					</a>
 				</h5>
 				<p class="date">
-					<?php echo Mage::getModel('core/date')->date('d.m.Y H:m', strtotime($item->pubDate())); ?>
+					<?php echo Mage::getModel('core/date')->date('d.m.Y H:m', strtotime($this->getFeedPublished($item))); ?>
 				</p>
 				<p class="summary">
-					<a href="<?php echo $this->escapeHtml($item->link()); ?>">
-						<?php echo $this->escapeHtml(Mage::helper('core/string')->truncate($item->description(), 80, '...', $remainder, false)); ?>
+					<a href="<?php echo $this->escapeHtml($this->getFeedLink($item)); ?>">
+						<?php echo $this->escapeHtml(Mage::helper('core/string')->truncate(strip_tags($this->getFeedContent($item)), 100, '...', $remainder, false)); ?>
 					</a>
 				</p>
 			</li>

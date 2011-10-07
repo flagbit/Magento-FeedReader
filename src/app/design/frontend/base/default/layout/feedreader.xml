@@ -6,7 +6,7 @@
 		</reference>
 		<reference name="right">
 			<block type="feedreader/sidebar" name="left.feedreader" template="feedreader/sidebar.phtml">
-				<action method="setUri"><uri>http://rss.cnn.com/rss/edition.rss</uri></action>
+				<action method="setUri"><uri>http://feeds.feedburner.com/bippoindonesia</uri></action>
 				<action method="setItemCount"><itemCount>4</itemCount></action>
 			</block>
 		</reference>

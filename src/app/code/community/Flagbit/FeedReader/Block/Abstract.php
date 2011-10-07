@@ -173,4 +173,24 @@ abstract class Flagbit_FeedReader_Block_Abstract extends Mage_Core_Block_Templat
 		}
 		return $return;
 	}
+	
+	public function getFeedPublished($item) {
+		return $item->pubDate() != null ? $item->pubDate() : $item->published();
+	}
+
+	public function getFeedLink($item) {
+		$links = $item->link();
+		if (is_array($links)) {
+			$result = null;
+			foreach ($links as $link) {
+				if ($result == null)
+					$result = $link->getAttribute('href'); // default is first element (can be replies, edit, self)
+				if ($link->getAttribute('rel') == 'alternate')
+					$result = $link->getAttribute('href'); // unless someone claims 'alternate'
+			}
+			return $result;
+		} else
+			return $links;
+	}
+	
 }

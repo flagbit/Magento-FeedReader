@@ -30,7 +30,7 @@
 				</p>
 				<p class="summary">
 					<a href="<?php echo $this->escapeHtml($item->link()); ?>">
-						<?php echo $this->escapeHtml(Mage::helper('core/string')->truncate(strip_tags($this->getFeedContent($item)), 80, '...', $remainder, false)); ?>
+						<?php echo $this->escapeHtml(Mage::helper('core/string')->truncate(strip_tags($this->getFeedContent($item)), 100, '...', $remainder, false)); ?>
 					</a>
 				</p>
 			</li>

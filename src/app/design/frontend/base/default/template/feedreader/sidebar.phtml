@@ -29,7 +29,7 @@
 					<?php echo Mage::getModel('core/date')->date('d.m.Y H:m', strtotime($this->getFeedPublished($item))); ?>
 				</p>
 				<p class="summary">
-					<a href="<?php echo $this->escapeHtml($item->link()); ?>">
+					<a href="<?php echo $this->escapeHtml($this->getFeedLink($item)); ?>">
 						<?php echo $this->escapeHtml(Mage::helper('core/string')->truncate(strip_tags($this->getFeedContent($item)), 100, '...', $remainder, false)); ?>
 					</a>
 				</p>

@@ -4,7 +4,7 @@
 	<property file="deploy.properties"/>
 	<property file="development.properties"/>
 	
-	<property name="app.code.dir" location="src/app/code"/>
+	<property name="app.code.community.dir" location="src/app/code/community"/>
 	<property name="app.design.dir" location="src/app/design"/>
 	<property name="skin.dir" location="src/skin"/>
 	<property name="app.etc.modules.dir" location="src/app/etc/modules"/>
@@ -52,7 +52,7 @@
 			<arg value="ssh -p${server.port}"/>
 			<arg value="-vza"/>
 			<arg value="--delete"/>
-			<arg value="${app.code.dir}/${extension.module.company}/${extension.module.name}"/>
+			<arg value="${app.code.community.dir}/${extension.module.company}/${extension.module.name}"/>
 			<arg value="${server.user}@${server.host}:${server.dir}/app/code/community/${extension.module.company}" />
 		</exec>
 		<exec executable="rsync">
@@ -107,9 +107,9 @@
 		<fail unless="magento.dir" message="Please set 'magento.dir' property to your Magento installation folder."/>
 
 		<mkdir dir="${magento.dir}/app/code/community/${extension.module.company}"/>
-		<symlink link="${magento.dir}/app/code/community/${extension.module.company}/" resource="${app.code.dir}/${extension.module.company}/${extension.module.name}" failonerror="false"/>
+		<symlink link="${magento.dir}/app/code/community/${extension.module.company}/" resource="${app.code.community.dir}/${extension.module.company}/${extension.module.name}" failonerror="false"/>
 		<symlink link="${magento.dir}/app/design/frontend/base/default/layout/" resource="${app.design.dir}/frontend/base/default/layout/${extension.dirname}.xml" failonerror="false"/>
-		<symlink link="${magento.dir}/app/design/frontend/base/default/template/" resource="${.app.design.dir}/frontend/base/default/template/${extension.dirname}" failonerror="false"/>
+		<symlink link="${magento.dir}/app/design/frontend/base/default/template/" resource="${app.design.dir}/frontend/base/default/template/${extension.dirname}" failonerror="false"/>
 		<symlink link="${magento.dir}/skin/frontend/base/default/css/" resource="${skin.dir}/frontend/base/default/css/${extension.dirname}.css" failonerror="false"/>
 		<symlink link="${magento.dir}/skin/frontend/base/default/images/" resource="${skin.dir}/frontend/base/default/images/${extension.dirname}" failonerror="false"/>
 		<symlink link="${magento.dir}/skin/frontend/base/default/js/" resource="${skin.dir}/frontend/base/default/js/${extension.dirname}" failonerror="false"/>

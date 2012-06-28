@@ -4,7 +4,7 @@
 		<Flagbit_FeedReader>
 			<active>true</active>
 			<codePool>community</codePool>
-			<version>1.1.1</version>
+			<version>1.1.2</version>
 		</Flagbit_FeedReader>
 	</modules>
 	

@@ -4,7 +4,7 @@
  *
  * @category   Flagbit
  * @package    Flagbit_FeedReader
- * @copyright  Copyright (c) 2010 Flagbit GmbH & Co. KG (http://www.flagbit.de)
+ * @copyright  Copyright (c) 2012 Flagbit GmbH & Co. KG (http://www.flagbit.de)
  */
 
 /**

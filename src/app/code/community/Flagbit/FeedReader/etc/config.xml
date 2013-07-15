@@ -4,7 +4,7 @@
 		<Flagbit_FeedReader>
 			<active>true</active>
 			<codePool>community</codePool>
-			<version>1.1.2</version>
+			<version>1.2.0</version>
 		</Flagbit_FeedReader>
 	</modules>
 	
@@ -19,6 +19,17 @@
 				<class>Flagbit_FeedReader_Helper</class>
 			</feedreader>
 		</helpers>
+        <resources>
+            <flagbit_feedreader_setup>
+                <setup>
+                    <module>Flagbit_FeedReader</module>
+                    <class>Mage_Catalog_Model_Resource_Setup</class>
+                </setup>
+                <connection>
+                    <use>default_setup</use>
+                </connection>
+            </flagbit_feedreader_setup>
+        </resources>
 	</global>
 	
 	<frontend>

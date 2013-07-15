@@ -170,4 +170,12 @@ abstract class Flagbit_FeedReader_Block_Abstract extends Mage_Core_Block_Templat
 		}
 		return $return;
 	}
+
+    public function _toHtml()
+    {
+        if(!$this->getData('uri')) {
+            return '';
+        }
+        return parent::_toHtml();
+    }
 }

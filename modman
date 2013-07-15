@@ -1,0 +1,10 @@
+src/app/etc/modules/*                                       app/etc/modules
+src/app/code/community/Flagbit/FeedReader                   app/code/community/Flagbit/FeedReader
+src/app/design/frontend/base/default/layout/*               app/design/frontend/base/default/layout/
+src/app/design/frontend/base/default/template/feedreader    app/design/frontend/base/default/template/feedreader
+src/app/locale/de_AT/*                                      app/locale/de_AT/
+src/app/locale/de_CH/*                                      app/locale/de_CH/
+src/app/locale/de_DE/*                                      app/locale/de_DE/
+src/app/locale/en_GB/*                                      app/locale/en_GB/
+src/app/locale/en_US/*                                      app/locale/en_US/
+src/skin/frontend/base/default/css/*                        skin/frontend/base/default/css/

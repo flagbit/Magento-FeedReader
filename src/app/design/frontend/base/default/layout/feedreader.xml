@@ -1,14 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layout version="0.1.0">
-	<default>
-		<reference name="head">
-			<action method="addCss"><stylesheet>css/feedreader.css</stylesheet></action>
-		</reference>
-		<reference name="right">
-			<block type="feedreader/sidebar" name="left.feedreader" template="feedreader/sidebar.phtml">
-				<action method="setUri"><uri>http://rss.cnn.com/rss/edition.rss</uri></action>
-				<action method="setItemCount"><itemCount>4</itemCount></action>
-			</block>
-		</reference>
-	</default>
+    <default>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>css/feedreader.css</stylesheet>
+            </action>
+        </reference>
+    </default>
+
+    <cms_page>
+        <reference name="right">
+            <block type="feedreader/sidebar" name="right.feedreader" template="feedreader/sidebar.phtml">
+                <action method="setUri">
+                    <uri>http://rss.cnn.com/rss/edition.rss</uri>
+                </action>
+                <action method="setItemCount">
+                    <itemCount>4</itemCount>
+                </action>
+            </block>
+        </reference>
+    </cms_page>
+
+    <catalog_category_view>
+        <reference name="right">
+            <block type="feedreader/category" name="right.feedreader.category">
+                <action method="setItemCount">
+                    <itemCount>4</itemCount>
+                </action>
+            </block>
+        </reference>
+    </catalog_category_view>
+
+    <catalog_product_view>
+        <reference name="right">
+            <block type="feedreader/product" name="right.feedreader.category">
+                <action method="setItemCount">
+                    <itemCount>4</itemCount>
+                </action>
+            </block>
+        </reference>
+    </catalog_product_view>
+
 </layout>
